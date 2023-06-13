@@ -1,0 +1,91 @@
+// Array Question
+
+int count=0;
+    for(int i=0;i<v.size();i++)
+    {
+        for(int j=0;j<v[i].size();j++)
+        {
+            if(check[i][j]==0 && mt[i][j]!=1)
+            {
+                // cout<<"this is i "<<i<<" j "<<j<<endl;
+                // cout<<"this is help "<<help(mt,check,i,j)<<endl;
+                if(help(mt,check,i,j)>1)
+                    count++;
+            }
+        }
+    }
+    return count;
+int help(vector<vector<int> > &mt,vector<vector<int> > &check,int i,int j)
+{
+    if(i<0 || j<0 || i>=mt.size() || j>=mt[0].size())
+        return 0;
+    if(check[i][j]==1)
+        return 0;
+    if(mt[i][j]==1)
+        return 0;
+    check[i][j]=1;
+    int l = help(mt,check,i-1,j);
+    int r = help(mt,check,i+1,j);
+    int u = help(mt,check,i,j-1);
+    int d = help(mt,check,i,j+1);
+    return l+r+u+d+1;
+}
+
+// String Question
+
+int help(int a,int b,string s)
+{
+    // cout<<a<<" "<<b<<endl;
+    vector<int> v(26,0);
+    int count=0;
+    for(int i=a+1;i<b;i++)
+    {
+        v[s[i]-'a']++;
+        if(v[s[i]-'a']<=1)
+            count++;
+    }
+    return count;
+}
+vector<int> v(s.size()),check(26);
+    int count = 0;
+    vector<pair<int,int>> pos(26);
+    for(int i=0;i<26;i++)
+    {
+        pos[i].first=-1;
+        pos[i].second=-1;
+    }
+    for(int i=0; i<s.size();i++)
+    {
+        if(pos[s[i]-'a'].first==-1)
+            pos[s[i]-'a'].first = i;
+        else
+            pos[s[i]-'a'].second=i;
+    }  
+    int ans=-1; 
+    for(int i=0;i<26;i++)
+    {
+        if(pos[i].first!=-1 && pos[i].second !=-1)
+            ans = max(help(pos[i].first,pos[i].second,s),ans);
+    }
+    return ans;
+
+    // Frontend Question
+const toggleButton = document.getElementById('toggleButton');
+
+toggleButton.addEventListener('click', function() {
+  if (toggleButton.classList.contains('off')) {
+    toggleButton.textContent = 'ON';
+    toggleButton.classList.remove('off');
+    toggleButton.classList.add('on');
+  } else {
+    toggleButton.textContent = 'OFF';
+    toggleButton.classList.remove('on');
+    toggleButton.classList.add('off');
+  }
+});
+
+// Tree Question
+
+
+
+
